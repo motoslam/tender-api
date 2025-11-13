@@ -27,19 +27,47 @@ docker-compose up -d --build
 
 # Внутри контейнера
 php artisan key:generate
-php artisan migrate
+php artisan migrate --seed
 php artisan tenders:import
 ```
+Будет создан тестовый пользователь для авторизации <br>
+Email: **test@example.com** <br>
+Password: **password123**
 
 ## API Endpoints
+
+### 0. Авторизация
+Нужна только для POST запроса <br><br>
+**POST** `/api/login`
+**Параметры:**
+- `email` - Email
+- `password` - Пароль
+
+**Успешный ответ:**
+```json
+{
+    "message": "Успешный вход",
+    "user": {
+        "id": 1,
+        "name": "Test User",
+        "email": "test@example.com",
+        "email_verified_at": null,
+        "created_at": "2025-11-13T12:52:30.000000Z",
+        "updated_at": "2025-11-13T12:52:30.000000Z"
+    },
+    "token": "1|r9KcBxJ1SPKAhFUQj6NdPZnQdiuLWyiap0HHCY6F87f843a5"
+}
+```
+
+Для авторизованного запроса token необходимо подставить в заголовок <br> **Authorization: Bearer YOUR_TOKEN**
 
 ### 1. Получить список тендеров
 **GET** `/api/tenders`
 
 **Параметры:**
 - `name` - фильтр по названию (LIKE)
-- `date_start` - начальная дата диапазона
-- `date_end` - конечная дата диапазона
+- `date_start` - начальная дата диапазона (YYYY-MM-DD)
+- `date_end` - конечная дата диапазона (YYYY-MM-DD)
 
 ### 2. Получить тендер по ID
 **GET** `/api/tenders/{id}`
