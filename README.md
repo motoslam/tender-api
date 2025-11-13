@@ -148,10 +148,10 @@ php artisan tenders:import custom_data.csv
     }
   ],
   "links": {
-    "first": "http://localhost:8000/api/tenders?page=1",
-    "last": "http://localhost:8000/api/tenders?page=110",
+    "first": "http://localhost/api/tenders?page=1",
+    "last": "http://localhost/api/tenders?page=110",
     "prev": null,
-    "next": "http://localhost:8000/api/tenders?page=2"
+    "next": "http://localhost/api/tenders?page=2"
   },
   "meta": {
     "current_page": 1,
